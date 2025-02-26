@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "tailwind",
+    "dogym",
+    "django_browser_reload",
+    'theme',
+
 ]
 
 MIDDLEWARE = [
@@ -121,3 +126,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+TAILWIND_APP_NAME = 'theme'
+
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"

@@ -17,6 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.contrib import admin
+from django.urls import path,include
+from django.conf.urls.static import static
+
 urlpatterns = [
+    path("__reload__/", include('django_browser_reload.urls')),
+    path("",include('dogym.urls')),
     path("admin/", admin.site.urls),
 ]
