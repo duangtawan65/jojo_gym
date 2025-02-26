@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-xv1=mr+n!0n=3%xyh0x)asoq2v++e3j8op4+)m(cpfbn#6p&5p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'faithful-gator-exciting.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://faithful-gator-exciting.ngrok-free.app']
 
 
 # Application definition
@@ -130,3 +131,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 TAILWIND_APP_NAME = 'theme'
 
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'faithful-gator-exciting.ngrok-free.app']
