@@ -16,8 +16,8 @@ urlpatterns = [
 
     path('staff/dashboard/', views.staff_dashboard, name='staff_dashboard'),
     path('staff/register_member/', views.register_member, name='register_member'),
-    path('staff/add_subscription/<int:member_id>/', views.add_subscription, name='add_subscription'),
+    path('staff/add_subscription/', views.add_subscription, name='add_subscription'),
     path('staff/check_member_status/', views.check_member_status, name='check_member_status'),
-    path('staff/check_member_status/', views.check_member_status, name='check_member_status'),
+    path('staff/check_in/', views.check_in_member, name='check_in_member'),
 
 ]

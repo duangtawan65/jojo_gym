@@ -5,18 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - ระบบจัดการยิม</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-orange': '#ff6b00',  // เปลี่ยนจากเหลืองอ่อนเป็นส้ม
+                        'cyber-dark': '#121212',
+                        'cyber-darker': '#0a0a0a',
+                        'cyber-gray': '#1e1e1e',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            background-image:
+                linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill-rule="evenodd"><g fill="%23ff6b00" fill-opacity="0.05"><path opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H4v4H3v-4H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/></g></g></svg>');
+        }
+        .card-futuristic {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-futuristic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ff6b00;  /* ส้ม */
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff6b00;  /* ส้ม */
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);  /* ส้ม */
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cyber-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 107, 0, 0.1);  /* ส้ม */
+            border: 1px solid #ff6b00;  /* ส้ม */
+            margin-right: 8px;
+            color: #ff6b00;  /* ส้ม */
+        }
+        .cyber-grid {
+            background-image: linear-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 107, 0, 0.1) 1px, transparent 1px);  /* ส้ม */
+            background-size: 20px 20px;
+            background-position: -1px -1px;
+        }
+        .cyber-title {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .cyber-btn {
+            background-color: rgba(255, 107, 0, 0.1);  /* ส้ม */
+            border: 1px solid #ff6b00;  /* ส้ม */
+            color: #ff6b00;  /* ส้ม */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .cyber-btn:hover {
+            background-color: rgba(255, 107, 0, 0.2);  /* ส้ม */
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.5);  /* ส้ม */
+        }
+        .cyber-table th {
+            color: #aaaaaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .cyber-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .cyber-table tr:hover {
+            background-color: rgba(255, 107, 0, 0.05);  /* ส้ม */
+        }
+        .user-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+        .badge-admin {
+            background-color: rgba(255, 107, 0, 0.2);  /* ส้ม */
+            border: 1px solid #ff6b00;  /* ส้ม */
+            color: #ff6b00;  /* ส้ม */
+        }
+        .badge-staff {
+            background-color: rgba(120, 170, 255, 0.2);
+            border: 1px solid #78aaff;
+            color: #78aaff;
+        }
+        .badge-member {
+            background-color: rgba(100, 255, 150, 0.2);
+            border: 1px solid #64ff96;
+            color: #64ff96;
+        }
+        input, select {
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus {
+            border-color: #ff6b00;  /* ส้ม */
+            box-shadow: 0 0 0 1px rgba(255, 107, 0, 0.2);  /* ส้ม */
+        }
+        select {
+
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body class="cyber-grid">
     <div class="min-h-screen">
         <!-- Header -->
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-gray-900">
-                    Admin Dashboard
-                </h1>
+        <header class="bg-cyber-darker border-b border-gray-800">
+            <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="cyber-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white uppercase tracking-wider">
+                        <span class="text-cyber-orange">จัดการ</span>ผู้ใช้
+                    </h1>
+                </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-gray-600">สวัสดี, {{ request.user.first_name }}</span>
-                    <a href="{% url 'logout' %}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">ออกจากระบบ</a>
+                    <span class="text-gray-400">ยินดีต้อนรับ, <span class="text-cyber-orange">{{ request.user.first_name|upper }}</span></span>
+                    <a href="{% url 'logout' %}" class="bg-cyber-gray hover:bg-cyber-darker text-white px-3 py-1 rounded-md text-xs border border-gray-700 uppercase tracking-wider">
+                        LOGOUT
+                    </a>
                 </div>
             </div>
         </header>
@@ -27,59 +185,91 @@
                 <!-- Messages -->
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="{% if message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% else %}bg-red-100 border-red-400 text-red-700{% endif %} px-4 py-3 rounded mb-4 border" role="alert">
+                        <div class="{% if message.tags == 'success' %}bg-cyber-dark border-green-600 text-green-400{% else %}bg-cyber-dark border-red-600 text-red-400{% endif %} px-4 py-3 rounded mb-4 border" role="alert">
                             {{ message }}
                         </div>
                     {% endfor %}
                 {% endif %}
 
                 <!-- User Stats -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                            <h2 class="text-lg font-semibold text-blue-700">พนักงานทั้งหมด</h2>
-                            <p class="text-3xl font-bold text-blue-800">{{ staff_count }}</p>
-                        </div>
-                        <div class="bg-green-50 p-4 rounded-lg shadow text-center">
-                            <h2 class="text-lg font-semibold text-green-700">สมาชิกทั้งหมด</h2>
-                            <p class="text-3xl font-bold text-green-800">{{ member_count }}</p>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-lg shadow text-center">
-                            <h2 class="text-lg font-semibold text-purple-700">ผู้ใช้ทั้งหมด</h2>
-                            <p class="text-3xl font-bold text-purple-800">{{ total_count }}</p>
+                <div class="grid grid-cols-1 gap-6 mb-6">
+                    <div class="card-futuristic">
+                        <div class="p-6">
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                สถิติในระบบ
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-500 opacity-50"></div>
+                                    <p class="stat-label">พนักงาน</p>
+                                    <p class="stat-number" style="color: #78aaff; text-shadow: 0 0 10px rgba(120, 170, 255, 0.5);">{{ staff_count }}</p>
+                                </div>
+                                <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-green-500 opacity-50"></div>
+                                    <p class="stat-label">สมาชิก</p>
+                                    <p class="stat-number" style="color: #64ff96; text-shadow: 0 0 10px rgba(100, 255, 150, 0.5);">{{ member_count }}</p>
+                                </div>
+                                <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange opacity-50"></div>
+                                    <p class="stat-label">ผ้ใช้ทั้งหมด</p>
+                                    <p class="stat-number">{{ total_count }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="mb-6 flex flex-wrap gap-4">
-                    <a href="{% url 'register_staff' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        เพิ่มพนักงานใหม่
+                    <a href="{% url 'register_staff' %}" class="cyber-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        เพิ่มพนักงาน
                     </a>
-                    <a href="{% url 'admin_statistics' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    <a href="{% url 'admin_statistics' %}" class="cyber-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
                         สถิติผู้ใช้งาน
                     </a>
                 </div>
 
                 <!-- Search and Filter -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="card-futuristic mb-6">
                     <div class="p-6">
-                        <form method="GET" action="{% url 'admin_dashboard' %}" class="space-y-4">
+                        <h2 class="cyber-title">
+                            <div class="cyber-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            ค้นหารายชื่อ
+                        </h2>
+                        <form method="GET" action="{% url 'admin_dashboard' %}" class="mt-4">
                             <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                                 <div class="flex-grow">
-                                    <label for="search" class="block text-sm font-medium text-gray-700">ค้นหา</label>
-                                    <input type="text" name="search" id="search" value="{{ search_query }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="ค้นหาชื่อหรืออีเมล">
+                                    <label for="search" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">แถบหารายชื่อ</label>
+                                    <input type="text" name="search" id="search" value="{{ search_query }}" class="mt-1 block w-full shadow-sm sm:text-sm rounded-md py-2 px-3 bg-cyber-dark border-gray-800 focus:border-cyber-orange" placeholder="ค้นหาชื่อหรืออีเมล">
                                 </div>
                                 <div>
-                                    <label for="type" class="block text-sm font-medium text-gray-700">ประเภทผู้ใช้</label>
-                                    <select name="type" id="type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="all" {% if user_type == 'all' %}selected{% endif %}>ทั้งหมด</option>
+                                    <label for="type" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">USER TYPE</label>
+                                    <select name="type" id="type" class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm bg-cyber-dark border-gray-800 focus:border-cyber-orange sm:text-sm">
+                                        <option value="all" {% if user_type == 'all' %}selected{% endif %}>ผู้ใช้ท้ังหมด</option>
                                         <option value="staff" {% if user_type == 'staff' %}selected{% endif %}>พนักงาน</option>
                                         <option value="member" {% if user_type == 'member' %}selected{% endif %}>สมาชิก</option>
                                     </select>
                                 </div>
                                 <div class="self-end">
-                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                                    <button type="submit" class="cyber-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
                                         ค้นหา
                                     </button>
                                 </div>
@@ -89,107 +279,105 @@
                 </div>
 
                 <!-- User List Table -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ชื่อ-นามสกุล
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Username / ID
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ประเภทผู้ใช้
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        การติดต่อ
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        วันที่สร้าง
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        จัดการ
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                {% for user in page_obj %}
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">{{ user.name }}</div>
-                                        {% if user.email != '-' %}
-                                            <div class="text-sm text-gray-500">{{ user.email }}</div>
-                                        {% endif %}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ user.username }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                                            {% if user.role == 'Admin' %}bg-purple-100 text-purple-800
-                                            {% elif user.role == 'Staff' %}bg-blue-100 text-blue-800
-                                            {% else %}bg-green-100 text-green-800{% endif %}">
-                                            {{ user.role }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ user.contact }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ user.created_at|date:"d/m/Y" }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <form method="POST" action="{% url 'delete_user' user.type user.id %}" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?');" class="inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="text-red-600 hover:text-red-900">ลบ</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
-                                        ไม่พบข้อมูลผู้ใช้
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="card-futuristic">
+                    <div class="p-6">
+                        <h2 class="cyber-title">
+                            <div class="cyber-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </div>
+                            รายการผู้ใช้
+                        </h2>
+                        <div class="overflow-x-auto mt-4">
+                            <table class="min-w-full cyber-table">
+                                <thead>
+                                    <tr>
+                                        <th>ชื่อ</th>
+                                        <th>ชื่อผู้ใช้</th>
+                                        <th>ตำแหน่ง</th>
+                                        <th>เบอร์ติดต่อ</th>
+                                        <th>วันที่สร้าง</th>
+                                        <th class="text-right"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in page_obj %}
+                                    <tr>
+                                        <td>
+                                            <div class="text-white">{{ user.name }}</div>
+                                            {% if user.email != '-' %}
+                                                <div class="text-gray-500 text-x">{{ user.email }}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="text-gray-300 font-mono">{{ user.username }}</div>
+                                        </td>
+                                        <td>
+                                            <span class="user-badge {% if user.role == 'Admin' %}badge-admin{% elif user.role == 'Staff' %}badge-staff{% else %}badge-member{% endif %}">
+                                                {{ user.role }}
+                                            </span>
+                                        </td>
+                                        <td class="text-gray-400">
+                                            {{ user.contact }}
+                                        </td>
+                                        <td class="text-gray-400">
+                                            {{ user.created_at|date:"d/m/Y" }}
+                                        </td>
+                                        <td class="text-right">
+                                            <form method="POST" action="{% url 'delete_user' user.type user.id %}" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?');" class="inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="text-red-400 hover:text-red-300 uppercase text-xs tracking-wider">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                    DELETE
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center text-gray-500">
+                                            NO USERS FOUND
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <!-- Pagination -->
-                    {% if page_obj.paginator.num_pages > 1 %}
-                    <div class="px-6 py-4 bg-white border-t border-gray-200 sm:px-6">
-                        <nav class="flex items-center justify-between">
+                        <!-- Pagination -->
+                        {% if page_obj.paginator.num_pages > 1 %}
+                        <div class="mt-6 flex items-center justify-between">
                             <div class="flex-1 flex justify-between">
                                 {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&type={{ user_type }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                    ก่อนหน้า
+                                <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&type={{ user_type }}" class="cyber-btn">
+                                    PREVIOUS
                                 </a>
                                 {% else %}
-                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-300 bg-gray-100 cursor-not-allowed">
-                                    ก่อนหน้า
+                                <span class="text-gray-600 border border-gray-800 bg-cyber-dark px-4 py-2 rounded-md text-xs uppercase tracking-wider cursor-not-allowed">
+                                    PREVIOUS
                                 </span>
                                 {% endif %}
 
-                                <span class="text-sm text-gray-700">
-                                    หน้า {{ page_obj.number }} จาก {{ page_obj.paginator.num_pages }}
+                                <span class="text-gray-400 text-xs uppercase tracking-wider">
+                                    PAGE {{ page_obj.number }} OF {{ page_obj.paginator.num_pages }}
                                 </span>
 
                                 {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&type={{ user_type }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                    ถัดไป
+                                <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&type={{ user_type }}" class="cyber-btn">
+                                    NEXT
                                 </a>
                                 {% else %}
-                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-300 bg-gray-100 cursor-not-allowed">
-                                    ถัดไป
+                                <span class="text-gray-600 border border-gray-800 bg-cyber-dark px-4 py-2 rounded-md text-xs uppercase tracking-wider cursor-not-allowed">
+                                    NEXT
                                 </span>
                                 {% endif %}
                             </div>
-                        </nav>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </main>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-3xl font-bold text-center text-gray-800 mb-8">staff Dashboard</h1>
+
+<!-- ปุ่มนำทาง -->
+<div class="flex space-x-4 mb-8 justify-center">
+    <a href="{% url 'register_member' %}" class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition ease-in-out duration-200 shadow-md transform hover:scale-105">เพิ่มสมาชิก</a>
+    <a href="{% url 'check_member_status' %}" class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition ease-in-out duration-200 shadow-md transform hover:scale-105">ตรวจสอบสมาชิก</a>
+    <a href="{% url 'add_subscription' %}" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition ease-in-out duration-200 shadow-md transform hover:scale-105">เพิ่มวันใช้งานสมาชิก</a>
+    <a href="{% url 'check_in_member' %}" class="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600 transition ease-in-out duration-200 shadow-md transform hover:scale-105">เช็คอินสมาชิก</a>
+</div>
+
+<!-- เช็คอินสมาชิกในวันนี้ -->
+<h2 class="text-2xl font-semibold mb-4 text-gray-700 text-center">สมาชิกที่เช็คอินในวันนี้</h2>
+
+<!-- ตารางข้อมูล -->
+<div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+    <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">ชื่อ</th>
+                <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">รหัสบัตรประชาชน</th>
+                <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">เบอร์โทรศัพท์</th>
+                <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">เวลาที่เช็คอิน</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for checkin in checkins_today %}
+            <tr class="border-t">
+                <td class="py-3 px-6 text-sm text-gray-800">{{ checkin.member.first_name }} {{ checkin.member.last_name }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ checkin.member.id_card }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ checkin.member.phone_number }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ checkin.check_in_time|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="py-3 px-6 text-center text-gray-500">ไม่มีสมาชิกที่เช็คอินในวันนี้</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

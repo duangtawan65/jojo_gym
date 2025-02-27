@@ -76,3 +76,12 @@ class Subscription(models.Model):
                 self.expiry_date = self.paid_date + timezone.timedelta(days=self.days_added)
 
         super().save(*args, **kwargs)
+
+class CheckIn(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='checkins', verbose_name="สมาชิก")
+    check_in_time = models.DateTimeField(default=timezone.now, verbose_name="เวลาที่เช็คอิน")
+    checked_by = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, verbose_name="พนักงานที่เช็คอิน")
+
+    def __str__(self):
+        return f"{self.member} เช็คอินเมื่อ {self.check_in_time.strftime('%d/%m/%Y %H:%M')}"
+

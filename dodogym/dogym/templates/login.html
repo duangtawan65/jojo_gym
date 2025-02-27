@@ -5,82 +5,277 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เข้าสู่ระบบ - ระบบจัดการยิม</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-orange': '#ff6b00',
+                        'cyber-dark': '#121212',
+                        'cyber-darker': '#0a0a0a',
+                        'cyber-gray': '#1e1e1e',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .cyber-grid {
+            background-image: linear-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 107, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: -1px -1px;
+        }
+
+        .login-card {
+            background-color: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ff6b00;
+        }
+
+        .form-header {
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 1.5rem;
+        }
+
+        .form-input {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #ff6b00;
+            box-shadow: 0 0 0 1px rgba(255, 107, 0, 0.2);
+            outline: none;
+        }
+
+        .cyber-btn {
+            background-color: #ff6b00;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+
+        .cyber-btn:hover {
+            background-color: #ff8c00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+        }
+
+        .input-icon-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            color: #ff6b00;
+        }
+
+        .input-with-icon {
+            padding-left: 2.5rem;
+        }
+
+        .link-btn {
+            color: #ff6b00;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn:hover {
+            color: #ff8c00;
+            text-decoration: underline;
+        }
+
+        .pulse-circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.1) 0%, rgba(255, 107, 0, 0) 70%);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+
+            70% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div>
-                {% if next %}
-                    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        ยืนยันตัวตนผู้ดูแล
-                    </h2>
-                    <p class="mt-2 text-center text-sm text-gray-600">
-                        กรุณาเข้าสู่ระบบเพื่อยืนยันตัวตนก่อนลงทะเบียนพนักงานใหม่
-                    </p>
-                {% else %}
-                    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        เข้าสู่ระบบจัดการยิม
-                    </h2>
-                {% endif %}
-            </div>
+<body class="cyber-grid">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+        <!-- Pulse circles for visual effect -->
+        <div class="pulse-circle" style="top: 20%; left: 20%;"></div>
+        <div class="pulse-circle" style="top: 60%; left: 70%; animation-delay: 0.5s;"></div>
 
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="rounded-md {% if message.tags == 'success' %}bg-green-50 border-green-300{% else %}bg-red-50 border-red-300{% endif %} p-4 border">
-                        <div class="flex">
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium {% if message.tags == 'success' %}text-green-800{% else %}text-red-800{% endif %}">
-                                    {{ message }}
-                                </h3>
-                            </div>
-                        </div>
+        <div class="max-w-md w-full">
+            <div class="login-card p-8">
+                <div class="form-header text-center mb-8">
+                    <div class="flex justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-cyber-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
-                {% endfor %}
-            {% endif %}
-
-            <form class="mt-8 space-y-6" action="{% url 'login' %}" method="POST">
-                {% csrf_token %}
-                {% if next %}
-                    <input type="hidden" name="next" value="{{ next }}">
-                {% endif %}
-                <div class="rounded-md shadow-sm -space-y-px">
-                    <div>
-                        <label for="username" class="sr-only">ชื่อผู้ใช้</label>
-                        <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="ชื่อผู้ใช้">
-                    </div>
-                    <div>
-                        <label for="password" class="sr-only">รหัสผ่าน</label>
-                        <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="รหัสผ่าน">
-                    </div>
-                </div>
-
-                <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
-                        เข้าสู่ระบบ
-                    </button>
-                </div>
-
-                <div class="text-center">
                     {% if next %}
-                        <p class="text-sm text-gray-600">
-                            <a href="{% url 'login' %}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                กลับไปหน้าหลัก
-                            </a>
+                        <h2 class="text-3xl font-extrabold text-white tracking-wider uppercase">
+                            ยืนยันตัวตน<span class="text-cyber-orange">ผู้ดูแล</span>
+                        </h2>
+                        <p class="mt-2 text-sm text-gray-400">
+                            กรุณาเข้าสู่ระบบเพื่อยืนยันตัวตนก่อนลงทะเบียนพนักงานใหม่
                         </p>
                     {% else %}
-                        <p class="text-sm text-gray-600">
-                            <a href="{% url 'login' %}?next={% url 'register_staff' %}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                ลงทะเบียนพนักงานใหม่
-                            </a>
+                        <h2 class="text-3xl font-extrabold text-white tracking-wider uppercase">
+                            เข้าสู่ระบบ<span class="text-cyber-orange">จัดการยิม</span>
+                        </h2>
+                        <p class="mt-2 text-sm text-gray-400">
+                            เข้าสู่ระบบเพื่อจัดการข้อมูลและติดตามผลงานของคุณ
                         </p>
                     {% endif %}
                 </div>
-            </form>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="rounded-md {% if message.tags == 'success' %}bg-green-900 border-green-700{% else %}bg-red-900 border-red-700{% endif %} p-4 border mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    {% if message.tags == 'success' %}
+                                        <svg class="h-5 w-5 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    {% else %}
+                                        <svg class="h-5 w-5 text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    {% endif %}
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium {% if message.tags == 'success' %}text-green-200{% else %}text-red-200{% endif %}">
+                                        {{ message }}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form class="mt-8 space-y-6" action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    {% endif %}
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="input-icon-wrapper">
+
+                                <input id="username" name="username" type="text" required class="form-input input-with-icon block w-full px-4 py-3 rounded-md shadow-sm sm:text-sm" placeholder="ชื่อผู้ใช้">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-icon-wrapper">
+
+                                <input id="password" name="password" type="password" required class="form-input input-with-icon block w-full px-4 py-3 rounded-md shadow-sm sm:text-sm" placeholder="รหัสผ่าน">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <button type="submit" class="cyber-btn w-full py-3 px-4 text-sm font-medium flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                            </svg>
+                            เข้าสู่ระบบ
+                        </button>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        {% if next %}
+                            <a href="{% url 'login' %}" class="link-btn text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                                กลับไปหน้าหลัก
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}?next={% url 'register_staff' %}" class="link-btn text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                                ลงทะเบียนพนักงานใหม่
+                            </a>
+                        {% endif %}
+                    </div>
+                </form>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

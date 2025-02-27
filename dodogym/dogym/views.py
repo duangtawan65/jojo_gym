@@ -92,12 +92,23 @@ def logout_view(request):
 
 @login_required
 def staff_dashboard(request):
-    # ตรวจสอบว่าเป็น Staff หรือไม่
-    if not hasattr(request.user, 'staff_profile'):
-        return redirect('login')
+    # ค้นหาวันที่ในวันนี้
+    today = timezone.now().date()
 
-    # โค้ดสำหรับ staff dashboard
-    return render(request, 'staff/staff_dashboard.html')
+    # ดึงการเช็คอินล่าสุดของแต่ละสมาชิกในวันนี้
+    checkins_today = CheckIn.objects.filter(check_in_time__date=today)
+
+    # กรองสมาชิกที่เช็คอินล่าสุด
+    latest_checkins = []
+    for member in Member.objects.all():
+        # ค้นหาการเช็คอินล่าสุดของสมาชิก
+        latest_checkin = checkins_today.filter(member=member).order_by('-check_in_time').first()
+        if latest_checkin:
+            latest_checkins.append(latest_checkin)
+
+    return render(request, 'staff/staff_dashboard.html', {
+        'checkins_today': latest_checkins  # ส่งข้อมูลการเช็คอินล่าสุดไปยังเทมเพลต
+    })
 
 
 @login_required
@@ -336,46 +347,94 @@ def register_member(request):
     else:
         form = MemberRegistrationForm()
 
-    return render(request, 'register_member.html', {'form': form})
+    return render(request, 'staff/register_member.html', {'form': form})
 
-def add_subscription(request, member_id):
-    member = get_object_or_404(Member, id=member_id)
-
+def add_subscription(request):
+    member = None
     if request.method == 'POST':
-        days = int(request.POST.get('days', 0))
-        if days > 0:
-            last_subscription = Subscription.objects.filter(member=member).order_by('-expiry_date').first()
+        # ค้นหาสมาชิกจาก query ที่กรอก (ค้นหาจากชื่อ, รหัสบัตรประชาชน, หรือเบอร์โทร)
+        query = request.POST.get('query', '')
+        if query:
+            # ค้นหาจากชื่อ, นามสกุล, รหัสบัตรประชาชน หรือเบอร์โทร
+            member = Member.objects.filter(
+                Q(first_name__icontains=query) |  # ค้นหาจากชื่อ
+                Q(last_name__icontains=query) |  # ค้นหาจากนามสกุล
+                Q(id_card=query) |  # ค้นหาจากรหัสบัตรประชาชน
+                Q(phone_number=query)  # ค้นหาจากเบอร์โทร
+            ).first()
 
-            if last_subscription and last_subscription.expiry_date > timezone.now():
-                expiry_date = last_subscription.expiry_date + timedelta(days=days)
-            else:
-                expiry_date = timezone.now() + timedelta(days=days)
+        if member:
+            # คำนวณวันเพิ่ม
+            days = int(request.POST.get('days', 0))
+            if days > 0:
+                last_subscription = Subscription.objects.filter(member=member).order_by('-expiry_date').first()
 
-            Subscription.objects.create(
+                if last_subscription and last_subscription.expiry_date > timezone.now():
+                    expiry_date = last_subscription.expiry_date + timedelta(days=days)
+                else:
+                    expiry_date = timezone.now() + timedelta(days=days)
+
+                # สร้าง Subscription ใหม่
+                Subscription.objects.create(
+                    member=member,
+                    days_added=days,
+                    expiry_date=expiry_date,
+                    created_by=request.user.staff_profile
+                )
+
+                # แจ้งผู้ใช้ว่าเพิ่มวันใช้งานสำเร็จ
+                messages.success(request, "เพิ่มวันใช้งานสำเร็จ!")
+                return redirect('staff_dashboard')  # ใช้ชื่อ URL สำหรับ staff_dashboard
+
+    return render(request, 'staff/add_subscription.html', {'member': member})
+def check_member_status(request):
+    query = request.GET.get('query', '')
+    members = []
+
+    if query:
+        # ค้นหาสมาชิกจาก query ที่กรอก
+        members = Member.objects.filter(id_card=query) | Member.objects.filter(phone_number=query)
+    else:
+        # ถ้าไม่มีคำค้นหาก็ให้ดึงข้อมูลสมาชิกทั้งหมด
+        members = Member.objects.all()
+
+    # ดึงข้อมูล Subscription ล่าสุดของสมาชิกแต่ละคน
+    for member in members:
+        last_subscription = member.subscriptions.order_by('-expiry_date').first()
+        member.last_subscription = last_subscription  # เพิ่มข้อมูล last_subscription ไปยังแต่ละสมาชิก
+
+    # ส่งข้อมูลสมาชิกและ subscription ล่าสุดไปยังเทมเพลต
+    return render(request, 'staff/check_member_status.html', {'members': members})
+
+
+
+
+
+def check_in_member(request):
+    query = request.GET.get('query', '')
+    member = None
+
+    if query:
+        # ค้นหาสมาชิกจาก query ที่กรอก (ค้นหาจากชื่อ, รหัสบัตรประชาชน หรือเบอร์โทร)
+        member = Member.objects.filter(
+            Q(first_name__icontains=query) |  # ค้นหาจากชื่อ
+            Q(last_name__icontains=query) |  # ค้นหาจากนามสกุล
+            Q(id_card=query) |  # ค้นหาจากรหัสบัตรประชาชน
+            Q(phone_number=query)  # ค้นหาจากเบอร์โทร
+        ).first()
+
+        if member:
+            # ตรวจสอบว่าผู้ใช้เป็น staff หรือไม่ หลังจากค้นหาสมาชิกแล้ว
+            if not hasattr(request.user, 'staff_profile'):
+                messages.error(request, "คุณต้องเป็นพนักงานในการเช็คอินสมาชิก")
+                return redirect('staff_dashboard')  # หรือให้ redirect ไปยังหน้าที่ต้องการ
+
+            # เช็คอินและบันทึกลงฐานข้อมูล
+            CheckIn.objects.create(
                 member=member,
-                days_added=days,
-                expiry_date=expiry_date,
-                created_by=request.user.staff_profile
+                check_in_time=timezone.now(),
+                checked_by=request.user.staff_profile  # ใช้ staff_profile จาก user
             )
-            messages.success(request, "เพิ่มวันใช้งานสำเร็จ!")
-            return redirect('staff_dashboard')
+            messages.success(request, f"เช็คอิน {member.first_name} {member.last_name} สำเร็จ!")
 
-    return render(request, 'add_subscription.html', {'member': member})
-
-def check_member_status(request):
-    query = request.GET.get('query', '')
-    member = None
-
-    if query:
-        member = Member.objects.filter(id_card=query).first() or Member.objects.filter(phone_number=query).first()
-
-    return render(request, 'check_member_status.html', {'member': member, 'query': query})
-
-def check_member_status(request):
-    query = request.GET.get('query', '')
-    member = None
-
-    if query:
-        member = Member.objects.filter(id_card=query).first() or Member.objects.filter(phone_number=query).first()
-
-    return render(request, 'check_member_status.html', {'member': member, 'query': query})
+    return render(request, 'staff/check_in_member.html', {'member': member, 'query': query})

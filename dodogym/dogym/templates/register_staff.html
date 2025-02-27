@@ -5,84 +5,271 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ลงทะเบียนพนักงานใหม่ - ระบบจัดการยิม</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-orange': '#ff6b00',
+                        'cyber-dark': '#121212',
+                        'cyber-darker': '#0a0a0a',
+                        'cyber-gray': '#1e1e1e',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .cyber-grid {
+            background-image: linear-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 107, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: -1px -1px;
+        }
+
+        .form-card {
+            background-color: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ff6b00;
+        }
+
+        .form-header {
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 1.5rem;
+        }
+
+        .form-input {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #ff6b00;
+            box-shadow: 0 0 0 1px rgba(255, 107, 0, 0.2);
+            outline: none;
+        }
+
+        .cyber-btn {
+            background-color: #ff6b00;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+
+        .cyber-btn:hover {
+            background-color: #ff8c00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+        }
+
+        .cancel-btn {
+            background-color: transparent;
+            border: 1px solid #444;
+            color: #ccc;
+        }
+
+        .cancel-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: #666;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #ff6b00;
+            margin-bottom: 0.25rem;
+        }
+
+        .input-icon-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .input-with-icon {
+            padding-left: 2.5rem;
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
+<body class="cyber-grid">
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    ลงทะเบียนพนักงานใหม่
-                </h2>
-                <p class="mt-2 text-center text-sm text-gray-600">
-                    กรอกข้อมูลเพื่อเพิ่มพนักงานใหม่เข้าสู่ระบบ
-                </p>
-            </div>
-            
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="rounded-md {% if message.tags == 'success' %}bg-green-50 border-green-300{% else %}bg-red-50 border-red-300{% endif %} p-4 border">
-                        <div class="flex">
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium {% if message.tags == 'success' %}text-green-800{% else %}text-red-800{% endif %}">
-                                    {{ message }}
-                                </h3>
-                            </div>
-                        </div>
+            <div class="form-card p-8">
+                <div class="form-header text-center mb-8">
+                    <div class="flex justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-cyber-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
-                {% endfor %}
-            {% endif %}
-            
-            <form class="mt-8 space-y-6" action="{% url 'register_staff' %}" method="POST">
-                {% csrf_token %}
-                <div class="rounded-md shadow-sm space-y-4">
-                    <div>
-                        <label for="username" class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
-                        <input id="username" name="username" type="text" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        {% if form.username.errors %}
-                            <p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <label for="first_name" class="block text-sm font-medium text-gray-700">ชื่อจริง</label>
-                        <input id="first_name" name="first_name" type="text" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                    <div>
-                        <label for="last_name" class="block text-sm font-medium text-gray-700">นามสกุล</label>
-                        <input id="last_name" name="last_name" type="text" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">อีเมล</label>
-                        <input id="email" name="email" type="email" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        {% if form.email.errors %}
-                            <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <label for="phone_number" class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
-                        <input id="phone_number" name="phone_number" type="text" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                    <div>
-                        <label for="password1" class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
-                        <input id="password1" name="password1" type="password" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                    <div>
-                        <label for="password2" class="block text-sm font-medium text-gray-700">ยืนยันรหัสผ่าน</label>
-                        <input id="password2" name="password2" type="password" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        {% if form.non_field_errors %}
-                            <p class="mt-1 text-sm text-red-600">{{ form.non_field_errors.0 }}</p>
-                        {% endif %}
-                    </div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-wider uppercase">
+                        เพิ่มพนักงาน<span class="text-cyber-orange">ใหม่</span>
+                    </h2>
+                    <p class="mt-2 text-sm text-gray-400">
+                        กรอกข้อมูลเพื่อเพิ่มสมาชิกทีมงานคุณภาพสู่ทีมของเรา
+                    </p>
                 </div>
 
-                <div class="flex space-x-3">
-                    <button type="submit" class="flex-grow py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        ลงทะเบียน
-                    </button>
-                    <a href="{% url 'login' %}" class="flex-grow py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-center">
-                        ยกเลิก
-                    </a>
-                </div>
-            </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="rounded-md {% if message.tags == 'success' %}bg-green-900 border-green-700{% else %}bg-red-900 border-red-700{% endif %} p-4 border mb-6">
+                            <div class="flex">
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium {% if message.tags == 'success' %}text-green-200{% else %}text-red-200{% endif %}">
+                                        {{ message }}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form class="mt-8 space-y-6" action="{% url 'register_staff' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="space-y-4">
+                        <div>
+                            <label for="username" class="form-label">ชื่อผู้ใช้</label>
+                            <div class="input-icon-wrapper">
+
+                                <input id="username" name="username" type="text" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                            </div>
+                            {% if form.username.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.username.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="first_name" class="form-label">ชื่อจริง</label>
+                                <div class="input-icon-wrapper">
+
+                                    <input id="first_name" name="first_name" type="text" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="last_name" class="form-label">นามสกุล</label>
+                                <div class="input-icon-wrapper">
+
+                                    <input id="last_name" name="last_name" type="text" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="form-label">อีเมล</label>
+                            <div class="input-icon-wrapper">
+
+                                <input id="email" name="email" type="email" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                            </div>
+                            {% if form.email.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.email.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="phone_number" class="form-label">เบอร์โทรศัพท์</label>
+                            <div class="input-icon-wrapper">
+
+                                <input id="phone_number" name="phone_number" type="text" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="password1" class="form-label">รหัสผ่าน</label>
+                            <div class="input-icon-wrapper">
+
+                                <input id="password1" name="password1" type="password" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="password2" class="form-label">ยืนยันรหัสผ่าน</label>
+                            <div class="input-icon-wrapper">
+
+                                <input id="password2" name="password2" type="password" required class="form-input input-with-icon mt-1 block w-full shadow-sm sm:text-sm rounded-md p-2">
+                            </div>
+                            {% if form.non_field_errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.non_field_errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <div class="flex space-x-3 mt-8">
+                        <button type="submit" class="cyber-btn flex-grow py-3 px-4 text-sm font-medium flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                            </svg>
+                            ลงทะเบียนพนักงาน
+                        </button>
+                        <a href="{% url 'login' %}" class="cancel-btn flex-grow py-3 px-4 text-sm font-medium text-center flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            ยกเลิก
+                        </a>
+                    </div>
+                </form>
+
+
+            </div>
         </div>
     </div>
 </body>

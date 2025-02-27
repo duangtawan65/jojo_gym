@@ -6,18 +6,127 @@
     <title>สถิติผู้ใช้งาน - ระบบจัดการยิม</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-orange': '#ff6b00',
+                        'cyber-dark': '#121212',
+                        'cyber-darker': '#0a0a0a',
+                        'cyber-gray': '#1e1e1e',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            background-image:
+                linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill-rule="evenodd"><g fill="%23ff6b00" fill-opacity="0.05"><path opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H4v4H3v-4H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/></g></g></svg>');
+        }
+        .card-futuristic {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-futuristic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ff6b00;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff6b00;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cyber-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid #ff6b00;
+            margin-right: 8px;
+            color: #ff6b00;
+        }
+        .cyber-grid {
+            background-image: linear-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 107, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: -1px -1px;
+        }
+        .cyber-title {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .cyber-btn {
+            background-color: rgba(255, 107, 0, 0.1);
+            border: 1px solid #ff6b00;
+            color: #ff6b00;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .cyber-btn:hover {
+            background-color: rgba(255, 107, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body class="cyber-grid">
     <div class="min-h-screen">
         <!-- Header -->
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-gray-900">
-                    สถิติผู้ใช้งาน
-                </h1>
+        <header class="bg-cyber-darker border-b border-gray-800">
+            <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="cyber-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white uppercase tracking-wider">
+                        <span class="text-cyber-orange">สถิติ</span>ยิม
+                    </h1>
+                </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{% url 'admin_dashboard' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm">กลับไปหน้า Dashboard</a>
-                    <a href="{% url 'logout' %}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">ออกจากระบบ</a>
+                    <a href="{% url 'admin_dashboard' %}" class="cyber-btn">
+                        Dashboard
+                    </a>
+                    <a href="{% url 'logout' %}" class="bg-cyber-gray hover:bg-cyber-darker text-white px-3 py-1 rounded-md text-xs border border-gray-700 uppercase tracking-wider">
+                        Logout
+                    </a>
                 </div>
             </div>
         </header>
@@ -27,57 +136,103 @@
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <!-- Summary Cards -->
                 <div class="grid grid-cols-1 gap-6 mb-6">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="card-futuristic">
                         <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-4">จำนวนผู้ใช้ทั้งหมด</h2>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                                    <p class="text-sm text-blue-700">สมาชิก</p>
-                                    <p class="text-3xl font-bold text-blue-800">{{ total_members }}</p>
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
                                 </div>
-                                <div class="bg-green-50 p-4 rounded-lg shadow text-center">
-                                    <p class="text-sm text-green-700">พนักงาน</p>
-                                    <p class="text-3xl font-bold text-green-800">{{ total_staff }}</p>
+                                ผู้ใช้ทั้งหมด
+                            </h2>
+                            <div class="grid grid-cols-2 gap-4 mt-4">
+                                <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange opacity-50"></div>
+                                    <p class="stat-label">สมาชิก</p>
+                                    <p class="stat-number">{{ total_members }}</p>
+                                </div>
+                                <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange opacity-50"></div>
+                                    <p class="stat-label">พนักงาน</p>
+                                    <p class="stat-number">{{ total_staff }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Age Chart -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                    <div class="p-6">
-                        <h2 class="text-xl font-semibold mb-4">ช่วงอายุของสมาชิก</h2>
-                        <div id="age-chart" style="height: 300px;"></div>
-                    </div>
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <!-- Age and Gender Charts -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card-futuristic">
                         <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-4">สัดส่วนเพศของสมาชิก</h2>
-                            <div id="gender-chart" style="height: 250px;"></div>
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                สัดส่วนอายุ
+                            </h2>
+                            <div id="age-chart" style="height: 300px;" class="mt-4"></div>
+                        </div>
+                    </div>
+                    <div class="card-futuristic">
+                        <div class="p-6">
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </div>
+                                สัดส่วนเพศ
+                            </h2>
+                            <div id="gender-chart" style="height: 300px;" class="mt-4"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Registration Charts -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="card-futuristic">
                         <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-4">การสมัครสมาชิกรายวัน</h2>
-                            <div id="daily-chart" style="height: 300px;"></div>
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                สมาชิก-รายวัน
+                            </h2>
+                            <div id="daily-chart" style="height: 300px;" class="mt-4"></div>
                         </div>
                     </div>
 
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="card-futuristic">
                         <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-4">การสมัครสมาชิกรายเดือน</h2>
-                            <div id="monthly-chart" style="height: 300px;"></div>
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                สมาชิก-รายเดือน
+                            </h2>
+                            <div id="monthly-chart" style="height: 300px;" class="mt-4"></div>
                         </div>
                     </div>
 
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="card-futuristic">
                         <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-4">การสมัครสมาชิกรายปี</h2>
-                            <div id="yearly-chart" style="height: 300px;"></div>
+                            <h2 class="cyber-title">
+                                <div class="cyber-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                สมาชิก-รายปี
+                            </h2>
+                            <div id="yearly-chart" style="height: 300px;" class="mt-4"></div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +241,9 @@
     </div>
 
     <script>
+        // กำหนดธีมสีส้มสำหรับแผนภูมิทั้งหมด
+        const orangePalette = ['#ff6b00', '#ff8c00', '#ffa500', '#ffbf00', '#ffd700', '#ffe44d'];
+
         // แผนภูมิวงกลมแสดงสัดส่วนเพศ
         var genderData = [
             {
@@ -93,20 +251,26 @@
                 labels: {{ gender_labels|safe }},
                 type: 'pie',
                 marker: {
-                    colors: ['#3b82f6', '#ec4899', '#10b981']
-                }
+                    colors: ['#ff6b00', '#ff8c00', '#ffbf00']
+                },
+                textinfo: "label+percent",
+                textfont: { color: '#ffffff' },
+                insidetextorientation: "radial"
             }
         ];
 
         var genderLayout = {
             margin: {t: 0, b: 0, l: 0, r: 0},
             showlegend: true,
-            legend: {orientation: 'h', y: -0.1}
+            legend: {orientation: 'h', y: -0.1, font: {color: '#aaaaaa'}},
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: '#aaaaaa' }
         };
 
         Plotly.newPlot('gender-chart', genderData, genderLayout);
 
-        // แผนภูมิแท่งแสดงช่วงอายุ
+        // แผนภูมิวงกลมแสดงช่วงอายุ
         var ageData = [
             {
                 values: [
@@ -120,15 +284,33 @@
                 labels: {{ age_labels|safe }},
                 type: 'pie',
                 marker: {
-                    colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899']
-                }
+                    colors: orangePalette
+                },
+                textinfo: "percent", // เปลี่ยนจาก "label+percent" เป็น "percent" เพื่อให้แสดงเฉพาะเปอร์เซ็นต์
+                textposition: "inside", // กำหนดตำแหน่งข้อความไว้ด้านใน
+                textfont: {
+                    color: '#ffffff',
+                    size: 12, // ลดขนาดตัวอักษร
+                    weight: 'bold' // ทำให้ตัวหนา
+                },
+                insidetextorientation: "radial",
+                hoverinfo: "label+percent" // แสดงข้อมูลเพิ่มเติมเมื่อ hover
             }
         ];
 
         var ageLayout = {
             margin: {t: 10, b: 10, l: 10, r: 10},
             showlegend: true,
-            legend: {orientation: 'h', y: -0.1}
+            legend: {
+                orientation: 'h',
+                y: -0.2, // ย้ายตำแหน่ง legend ลงด้านล่างอีกนิดเพื่อไม่ให้ทับกับกราฟ
+                font: {color: '#aaaaaa'},
+                xanchor: 'center', // จัดให้อยู่กลาง
+                x: 0.5 // จัดให้อยู่กลาง
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: '#aaaaaa' }
         };
 
         Plotly.newPlot('age-chart', ageData, ageLayout);
@@ -140,13 +322,28 @@
                 y: {{ daily_registrations|safe }},
                 type: 'scatter',
                 mode: 'lines+markers',
-                line: {color: '#3b82f6'}
+                line: {color: '#ff6b00', width: 3},
+                marker: {color: '#ff6b00', size: 8, line: {color: '#ffffff', width: 1}}
             }
         ];
 
         var dailyLayout = {
             margin: {t: 10, b: 40, l: 40, r: 10},
-            yaxis: {title: 'จำนวนสมาชิกใหม่'}
+            yaxis: {
+                title: 'สมาชิกใหม่',
+                gridcolor: '#2a2a2a',
+                tickfont: {color: '#aaaaaa'},
+                titlefont: {color: '#aaaaaa'},
+                zeroline: false
+            },
+            xaxis: {
+                gridcolor: '#2a2a2a',
+                tickfont: {color: '#aaaaaa'},
+                zeroline: false
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: '#aaaaaa' }
         };
 
         Plotly.newPlot('daily-chart', dailyData, dailyLayout);
@@ -156,14 +353,42 @@
             {
                 x: {{ monthly_labels|safe }},
                 y: {{ monthly_registrations|safe }},
-                type: 'bar',
-                marker: {color: '#10b981'}
+                type: 'bar', // นี่เป็นแบบแท่งอยู่แล้ว แต่เราจะปรับเพิ่มเติม
+                marker: {
+                    color: '#ff6b00',
+                    line: {
+                        color: '#ffffff',
+                        width: 0.5
+                    }
+                },
+                text: {{ monthly_registrations|safe }}, // แสดงค่าบนแท่ง
+                textposition: 'auto', // ตำแหน่งข้อความอัตโนมัติ
+                hoverinfo: 'x+y' // แสดงข้อมูลเมื่อ hover
             }
         ];
 
         var monthlyLayout = {
-            margin: {t: 10, b: 40, l: 40, r: 10},
-            yaxis: {title: 'จำนวนสมาชิกใหม่'}
+            margin: {t: 10, b: 60, l: 40, r: 10}, // เพิ่ม margin ด้านล่างเพื่อให้มีที่แสดงชื่อเดือนมากขึ้น
+            yaxis: {
+                title: 'สมาชิกใหม่',
+                gridcolor: '#2a2a2a',
+                tickfont: {color: '#aaaaaa'},
+                titlefont: {color: '#aaaaaa'},
+                zeroline: false
+            },
+            xaxis: {
+                gridcolor: '#2a2a2a',
+                tickfont: {
+                    color: '#aaaaaa',
+                    size: 10, // ปรับขนาดตัวอักษรชื่อเดือน
+                    angle: -45 // ปรับมุมตัวอักษรให้เอียง 45 องศา
+                },
+                zeroline: false
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: '#aaaaaa' },
+            bargap: 0.2 // กำหนดระยะห่างระหว่างแท่ง
         };
 
         Plotly.newPlot('monthly-chart', monthlyData, monthlyLayout);
@@ -174,13 +399,33 @@
                 x: {{ yearly_labels|safe }},
                 y: {{ yearly_registrations|safe }},
                 type: 'bar',
-                marker: {color: '#8b5cf6'}
+                marker: {
+                    color: '#ff6b00',
+                    line: {
+                        color: '#ffffff',
+                        width: 0.5
+                    }
+                }
             }
         ];
 
         var yearlyLayout = {
             margin: {t: 10, b: 40, l: 40, r: 10},
-            yaxis: {title: 'จำนวนสมาชิกใหม่'}
+            yaxis: {
+                title: 'สมาชิกใหม่',
+                gridcolor: '#2a2a2a',
+                tickfont: {color: '#aaaaaa'},
+                titlefont: {color: '#aaaaaa'},
+                zeroline: false
+            },
+            xaxis: {
+                gridcolor: '#2a2a2a',
+                tickfont: {color: '#aaaaaa'},
+                zeroline: false
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: '#aaaaaa' }
         };
 
         Plotly.newPlot('yearly-chart', yearlyData, yearlyLayout);
