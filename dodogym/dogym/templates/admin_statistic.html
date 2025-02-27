@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สถิติผู้ใช้งาน - ระบบจัดการยิม</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-gray-900">
+                    สถิติผู้ใช้งาน
+                </h1>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'admin_dashboard' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm">กลับไปหน้า Dashboard</a>
+                    <a href="{% url 'logout' %}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">ออกจากระบบ</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 gap-6 mb-6">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-4">จำนวนผู้ใช้ทั้งหมด</h2>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
+                                    <p class="text-sm text-blue-700">สมาชิก</p>
+                                    <p class="text-3xl font-bold text-blue-800">{{ total_members }}</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg shadow text-center">
+                                    <p class="text-sm text-green-700">พนักงาน</p>
+                                    <p class="text-3xl font-bold text-green-800">{{ total_staff }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Age Chart -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-4">ช่วงอายุของสมาชิก</h2>
+                        <div id="age-chart" style="height: 300px;"></div>
+                    </div>
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-4">สัดส่วนเพศของสมาชิก</h2>
+                            <div id="gender-chart" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-4">การสมัครสมาชิกรายวัน</h2>
+                            <div id="daily-chart" style="height: 300px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-4">การสมัครสมาชิกรายเดือน</h2>
+                            <div id="monthly-chart" style="height: 300px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-4">การสมัครสมาชิกรายปี</h2>
+                            <div id="yearly-chart" style="height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // แผนภูมิวงกลมแสดงสัดส่วนเพศ
+        var genderData = [
+            {
+                values: [{{ gender_data.male }}, {{ gender_data.female }}, {{ gender_data.other }}],
+                labels: {{ gender_labels|safe }},
+                type: 'pie',
+                marker: {
+                    colors: ['#3b82f6', '#ec4899', '#10b981']
+                }
+            }
+        ];
+
+        var genderLayout = {
+            margin: {t: 0, b: 0, l: 0, r: 0},
+            showlegend: true,
+            legend: {orientation: 'h', y: -0.1}
+        };
+
+        Plotly.newPlot('gender-chart', genderData, genderLayout);
+
+        // แผนภูมิแท่งแสดงช่วงอายุ
+        var ageData = [
+            {
+                values: [
+                    {{ age_ranges.age_0_18 }},
+                    {{ age_ranges.age_19_25 }},
+                    {{ age_ranges.age_26_35 }},
+                    {{ age_ranges.age_36_45 }},
+                    {{ age_ranges.age_46_60 }},
+                    {{ age_ranges.age_60_plus }}
+                ],
+                labels: {{ age_labels|safe }},
+                type: 'pie',
+                marker: {
+                    colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899']
+                }
+            }
+        ];
+
+        var ageLayout = {
+            margin: {t: 10, b: 10, l: 10, r: 10},
+            showlegend: true,
+            legend: {orientation: 'h', y: -0.1}
+        };
+
+        Plotly.newPlot('age-chart', ageData, ageLayout);
+
+        // แผนภูมิเส้นแสดงการสมัครสมาชิกรายวัน
+        var dailyData = [
+            {
+                x: {{ daily_labels|safe }},
+                y: {{ daily_registrations|safe }},
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: '#3b82f6'}
+            }
+        ];
+
+        var dailyLayout = {
+            margin: {t: 10, b: 40, l: 40, r: 10},
+            yaxis: {title: 'จำนวนสมาชิกใหม่'}
+        };
+
+        Plotly.newPlot('daily-chart', dailyData, dailyLayout);
+
+        // แผนภูมิแท่งแสดงการสมัครสมาชิกรายเดือน
+        var monthlyData = [
+            {
+                x: {{ monthly_labels|safe }},
+                y: {{ monthly_registrations|safe }},
+                type: 'bar',
+                marker: {color: '#10b981'}
+            }
+        ];
+
+        var monthlyLayout = {
+            margin: {t: 10, b: 40, l: 40, r: 10},
+            yaxis: {title: 'จำนวนสมาชิกใหม่'}
+        };
+
+        Plotly.newPlot('monthly-chart', monthlyData, monthlyLayout);
+
+        // แผนภูมิแท่งแสดงการสมัครสมาชิกรายปี
+        var yearlyData = [
+            {
+                x: {{ yearly_labels|safe }},
+                y: {{ yearly_registrations|safe }},
+                type: 'bar',
+                marker: {color: '#8b5cf6'}
+            }
+        ];
+
+        var yearlyLayout = {
+            margin: {t: 10, b: 40, l: 40, r: 10},
+            yaxis: {title: 'จำนวนสมาชิกใหม่'}
+        };
+
+        Plotly.newPlot('yearly-chart', yearlyData, yearlyLayout);
+    </script>
+</body>
+</html>

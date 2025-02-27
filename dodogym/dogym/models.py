@@ -55,8 +55,7 @@ class Subscription(models.Model):
     days_added = models.PositiveIntegerField(verbose_name="จำนวนวันที่เพิ่ม")
     paid_date = models.DateTimeField(default=timezone.now, verbose_name="วันที่บันทึก")
     expiry_date = models.DateTimeField(verbose_name="วันที่หมดอายุ")
-    created_by = models.ForeignKey('Staff', on_delete=models.SET_NULL, null=True, related_name='subscriptions_created',
-                                   verbose_name="ผู้บันทึกข้อมูล")
+    created_by = models.ForeignKey('Staff', on_delete=models.SET_NULL, null=True, related_name='subscriptions_created', verbose_name="ผู้บันทึกข้อมูล")
 
     def __str__(self):
         return f"{self.member} - {self.days_added} วัน ({self.paid_date.strftime('%d/%m/%Y')})"

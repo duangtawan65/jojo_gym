@@ -133,3 +133,5 @@ TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'faithful-gator-exciting.ngrok-free.app']
+
+LOGIN_URL = 'login'
