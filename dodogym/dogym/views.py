@@ -14,11 +14,13 @@ from .models import *
 import datetime
 from django.utils import timezone
 from datetime import timedelta
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
 
 
 @login_required
 def register_staff(request):
-    # ตรวจสอบว่าผู้ใช้เป็น admin หรือ superuser หรือไม่
+    # ตรวจสอบว่าผู้ใช้เป็น admin หรือ superuser หรือไม่ฏ
     if not (request.user.is_superuser or
            (hasattr(request.user, 'staff_profile') and request.user.staff_profile.is_admin)):
         messages.error(request, 'คุณไม่มีสิทธิ์เข้าถึงหน้านี้')
@@ -49,6 +51,48 @@ def register_staff(request):
         form = StaffRegistrationForm()
 
     return render(request, 'register_staff.html', {'form': form})
+
+
+def home_view(request):
+    member = None
+    subscription = None
+    search_results = []
+
+    # รับค่าจากฟอร์มค้นหา
+    name = request.GET.get('name', '')
+    id_card = request.GET.get('id_card', '')
+    phone = request.GET.get('phone', '')
+
+    # ถ้ามีการค้นหา (มีการกรอกข้อมูลในช่องใดช่องหนึ่ง)
+    if name or id_card or phone:
+        # สร้าง query object สำหรับการค้นหา
+        query = Q()
+
+        if name:
+            query |= Q(first_name__icontains=name) | Q(last_name__icontains=name)
+
+        if id_card:
+            query |= Q(id_card__icontains=id_card)
+
+        if phone:
+            query |= Q(phone_number__icontains=phone)
+
+        # ค้นหาด้วย query
+        search_results = Member.objects.filter(query)
+
+        # ถ้าพบสมาชิกเพียงคนเดียว ให้แสดงข้อมูลทันที
+        if search_results.count() == 1:
+            member = search_results.first()
+            subscription = member.subscriptions.order_by('-expiry_date').first()
+
+    return render(request, 'user_sidebar.html', {
+        'member': member,
+        'subscription': subscription,
+        'name': name,
+        'id_card': id_card,
+        'phone': phone,
+        'search_results': search_results
+    })
 
 
 def login_view(request):
@@ -217,9 +261,7 @@ def admin_statistics(request):
         'other': Member.objects.filter(gender='other').count(),
     }
 
-    # ข้อมูลช่วงอายุ (สำหรับ Bar Chart)
-    import datetime
-    from django.utils import timezone
+
 
     today = timezone.now().date()
 
@@ -309,6 +351,58 @@ def admin_statistics(request):
 
     return render(request, 'admin_statistic.html', context)
 
+
+@login_required
+def get_member_data(request, member_id):
+    # ตรวจสอบว่าเป็น Admin หรือ superuser หรือไม่
+    if not (request.user.is_superuser or
+            (hasattr(request.user, 'staff_profile') and request.user.staff_profile.is_admin)):
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+
+    member = get_object_or_404(Member, id=member_id)
+    data = {
+        'first_name': member.first_name,
+        'last_name': member.last_name,
+        'id_card': member.id_card,
+        'birth_date': member.birth_date.strftime('%Y-%m-%d'),
+        'gender': member.gender,
+        'weight': member.weight,
+        'height': member.height,
+        'phone_number': member.phone_number,
+    }
+
+    return JsonResponse(data)
+
+
+@login_required
+@require_http_methods(["POST"])
+def edit_member(request, member_id):
+    # ตรวจสอบว่าเป็น Admin หรือ superuser หรือไม่
+    if not (request.user.is_superuser or
+            (hasattr(request.user, 'staff_profile') and request.user.staff_profile.is_admin)):
+        messages.error(request, 'คุณไม่มีสิทธิ์แก้ไขข้อมูลสมาชิก')
+        return redirect('admin_dashboard')
+
+    member = get_object_or_404(Member, id=member_id)
+
+    # รับข้อมูลจากฟอร์ม
+    member.first_name = request.POST.get('first_name')
+    member.last_name = request.POST.get('last_name')
+    member.id_card = request.POST.get('id_card')
+    member.birth_date = request.POST.get('birth_date')
+    member.gender = request.POST.get('gender')
+    member.weight = float(request.POST.get('weight'))
+    member.height = float(request.POST.get('height'))
+    member.phone_number = request.POST.get('phone_number')
+
+    # บันทึกข้อมูล
+    try:
+        member.save()
+        messages.success(request, f'อัปเดตข้อมูลสมาชิก {member.first_name} {member.last_name} เรียบร้อยแล้ว')
+    except Exception as e:
+        messages.error(request, f'เกิดข้อผิดพลาดในการอัปเดตข้อมูล: {str(e)}')
+
+    return redirect('admin_dashboard')
 @login_required
 def delete_user(request, user_type, user_id):
     # ตรวจสอบว่าเป็น Admin หรือ superuser หรือไม่

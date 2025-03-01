@@ -226,12 +226,6 @@
 
                 <!-- Action Buttons -->
                 <div class="mb-6 flex flex-wrap gap-4">
-                    <a href="{% url 'register_staff' %}" class="cyber-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        เพิ่มพนักงาน
-                    </a>
                     <a href="{% url 'admin_statistics' %}" class="cyber-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -324,16 +318,27 @@
                                         <td class="text-gray-400">
                                             {{ user.created_at|date:"d/m/Y" }}
                                         </td>
+
                                         <td class="text-right">
-                                            <form method="POST" action="{% url 'delete_user' user.type user.id %}" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?');" class="inline">
-                                                {% csrf_token %}
-                                                <button type="submit" class="text-red-400 hover:text-red-300 uppercase text-xs tracking-wider">
+                                            <div class="btn-group">
+                                                {% if user.role == 'Member' %}
+                                                <button type="button" onclick="openEditModal('{{ user.id }}', '{{ user.type }}')" class="edit-btn">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                     </svg>
-                                                    DELETE
+                                                    Edit
                                                 </button>
-                                            </form>
+                                                {% endif %}
+                                                <form method="POST" action="{% url 'delete_user' user.type user.id %}" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?');" class="inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="text-red-400 hover:text-red-300 uppercase text-xs tracking-wider">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                     {% empty %}
@@ -345,6 +350,77 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                        </div>
+                        <div id="editModal" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="flex items-center">
+                                        <div class="cyber-circle">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </div>
+                                        <h2 class="text-xl font-semibold text-white uppercase tracking-wider">แก้ไขข้อมูลสมาชิก</h2>
+                                    </div>
+                                    <button type="button" class="close-btn" onclick="closeModal()">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editMemberForm" method="POST" action="">
+                                        {% csrf_token %}
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="form-group">
+                                                <label for="first_name" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">ชื่อ</label>
+                                                <input type="text" id="first_name" name="first_name" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="last_name" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">นามสกุล</label>
+                                                <input type="text" id="last_name" name="last_name" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_card" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">รหัสบัตรประชาชน</label>
+                                            <input type="text" id="id_card" name="id_card" class="form-control" maxlength="13" required>
+                                        </div>
+
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="form-group">
+                                                <label for="birth_date" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">วันเดือนปีเกิด</label>
+                                                <input type="text" id="birth_date" name="birth_date" class="form-control datepicker" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="gender" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">เพศ</label>
+                                                <select id="gender" name="gender" class="form-control" required>
+                                                    <option value="male">ชาย</option>
+                                                    <option value="female">หญิง</option>
+                                                    <option value="other">อื่นๆ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="form-group">
+                                                <label for="weight" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">น้ำหนัก (กก.)</label>
+                                                <input type="number" id="weight" name="weight" step="0.1" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="height" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">ส่วนสูง (ซม.)</label>
+                                                <input type="number" id="height" name="height" step="0.1" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="phone_number" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">เบอร์โทรศัพท์</label>
+                                            <input type="text" id="phone_number" name="phone_number" class="form-control" required>
+                                        </div>
+
+                                        <div class="mt-6 flex justify-end space-x-3">
+                                            <button type="button" class="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700" onclick="closeModal()">ยกเลิก</button>
+                                            <button type="submit" class="cyber-btn">บันทึกข้อมูล</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Pagination -->
@@ -383,4 +459,65 @@
         </main>
     </div>
 </body>
+<script>
+    // สำหรับเปิด/ปิดโมดัล
+    function openEditModal(id, type) {
+        if (type === 'member') {
+            // สร้าง URL สำหรับ fetch ข้อมูลและตั้งค่า action ของฟอร์ม
+            const getUrl = `/api/member/${id}/`;
+            const formAction = `/member/edit/${id}/`;
+
+            // ตั้งค่า action ของฟอร์ม
+            document.getElementById('editMemberForm').action = formAction;
+
+            // ดึงข้อมูลสมาชิกจาก API
+            fetch(getUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // เติมข้อมูลในฟอร์ม
+                    document.getElementById('first_name').value = data.first_name;
+                    document.getElementById('last_name').value = data.last_name;
+                    document.getElementById('id_card').value = data.id_card;
+                    document.getElementById('birth_date').value = data.birth_date;
+                    document.getElementById('gender').value = data.gender;
+                    document.getElementById('weight').value = data.weight;
+                    document.getElementById('height').value = data.height;
+                    document.getElementById('phone_number').value = data.phone_number;
+
+                    // เปิดโมดัล
+                    document.getElementById('editModal').classList.add('active');
+                })
+                .catch(error => {
+                    console.error('Error fetching member data:', error);
+                    alert('เกิดข้อผิดพลาดในการดึงข้อมูลสมาชิก');
+                });
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('editModal').classList.remove('active');
+    }
+
+    // สำหรับกำหนด datepicker
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr(".datepicker", {
+            dateFormat: "Y-m-d",
+            theme: "dark",
+            allowInput: true
+        });
+    });
+
+    // ปิดโมดัลเมื่อคลิกพื้นที่ภายนอก
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('editModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+</script>
 </html>
