@@ -20,98 +20,24 @@
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
-
         body {
-            background-color: #121212;
-            color: #ffffff;
             font-family: 'Rajdhani', sans-serif;
+            background-color: #121212;
             background-image:
                 linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)),
                 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill-rule="evenodd"><g fill="%23ff6b00" fill-opacity="0.05"><path opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H4v4H3v-4H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/></g></g></svg>');
         }
-        .card-futuristic {
-            background-color: rgba(30, 30, 30, 0.7);
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        .card-futuristic::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #ff6b00;
-        }
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #ff6b00;
-            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
-            line-height: 1;
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            color: #aaaaaa;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .cyber-circle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 107, 0, 0.1);
-            border: 1px solid #ff6b00;
-            margin-right: 8px;
-            color: #ff6b00;
-        }
-        .cyber-grid {
-            background-image: linear-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(255, 107, 0, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            background-position: -1px -1px;
-        }
-        .cyber-title {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-        }
-        .cyber-btn {
-            background-color: rgba(255, 107, 0, 0.1);
-            border: 1px solid #ff6b00;
-            color: #ff6b00;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            padding: 0.5rem 1.25rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        .cyber-btn:hover {
-            background-color: rgba(255, 107, 0, 0.2);
-            box-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
-        }
     </style>
 </head>
-<body class="cyber-grid">
+<body class="min-h-screen text-white bg-cyber-dark bg-opacity-20">
     <div class="min-h-screen">
         <!-- Header -->
         <header class="bg-cyber-darker border-b border-gray-800">
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <div class="flex items-center">
-                    <div class="cyber-circle">
+                    <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                         </svg>
@@ -121,7 +47,7 @@
                     </h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{% url 'admin_dashboard' %}" class="cyber-btn">
+                    <a href="{% url 'admin_dashboard' %}" class="bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange uppercase tracking-wider font-semibold px-5 py-2 rounded hover:bg-opacity-20 transition-all hover:shadow-lg hover:shadow-cyber-orange/30">
                         Dashboard
                     </a>
                     <a href="{% url 'logout' %}" class="bg-cyber-gray hover:bg-cyber-darker text-white px-3 py-1 rounded-md text-xs border border-gray-700 uppercase tracking-wider">
@@ -136,10 +62,10 @@
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <!-- Summary Cards -->
                 <div class="grid grid-cols-1 gap-6 mb-6">
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
@@ -148,14 +74,14 @@
                             </h2>
                             <div class="grid grid-cols-2 gap-4 mt-4">
                                 <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
-                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange opacity-50"></div>
-                                    <p class="stat-label">สมาชิก</p>
-                                    <p class="stat-number">{{ total_members }}</p>
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange bg-opacity-50"></div>
+                                    <p class="text-gray-400 uppercase tracking-wider text-sm">สมาชิก</p>
+                                    <p class="text-5xl font-bold text-cyber-orange leading-none" style="text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);">{{ total_members }}</p>
                                 </div>
                                 <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
-                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange opacity-50"></div>
-                                    <p class="stat-label">พนักงาน</p>
-                                    <p class="stat-number">{{ total_staff }}</p>
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange bg-opacity-50"></div>
+                                    <p class="text-gray-400 uppercase tracking-wider text-sm">พนักงาน</p>
+                                    <p class="text-5xl font-bold text-cyber-orange leading-none" style="text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);">{{ total_staff }}</p>
                                 </div>
                             </div>
                         </div>
@@ -164,75 +90,75 @@
 
                 <!-- Age and Gender Charts -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                                 สัดส่วนอายุ
                             </h2>
-                            <div id="age-chart" style="height: 300px;" class="mt-4"></div>
+                            <div id="age-chart" class="h-[300px] mt-4"></div>
                         </div>
                     </div>
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
                                 </div>
                                 สัดส่วนเพศ
                             </h2>
-                            <div id="gender-chart" style="height: 300px;" class="mt-4"></div>
+                            <div id="gender-chart" class="h-[300px] mt-4"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Registration Charts -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                                 สมาชิก-รายวัน
                             </h2>
-                            <div id="daily-chart" style="height: 300px;" class="mt-4"></div>
+                            <div id="daily-chart" class="h-[300px] mt-4"></div>
                         </div>
                     </div>
 
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                                 สมาชิก-รายเดือน
                             </h2>
-                            <div id="monthly-chart" style="height: 300px;" class="mt-4"></div>
+                            <div id="monthly-chart" class="h-[300px] mt-4"></div>
                         </div>
                     </div>
 
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                                 สมาชิก-รายปี
                             </h2>
-                            <div id="yearly-chart" style="height: 300px;" class="mt-4"></div>
+                            <div id="yearly-chart" class="h-[300px] mt-4"></div>
                         </div>
                     </div>
                 </div>

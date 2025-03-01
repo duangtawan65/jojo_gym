@@ -10,7 +10,7 @@
             theme: {
                 extend: {
                     colors: {
-                        'cyber-orange': '#ff6b00',  // เปลี่ยนจากเหลืองอ่อนเป็นส้ม
+                        'cyber-orange': '#ff6b00',
                         'cyber-dark': '#121212',
                         'cyber-darker': '#0a0a0a',
                         'cyber-gray': '#1e1e1e',
@@ -19,149 +19,33 @@
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
-
         body {
-            background-color: #121212;
-            color: #ffffff;
             font-family: 'Rajdhani', sans-serif;
+            background-color: #121212;
             background-image:
                 linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)),
                 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill-rule="evenodd"><g fill="%23ff6b00" fill-opacity="0.05"><path opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H4v4H3v-4H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3v-9H0v-1h3V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h9V0h1v3h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/></g></g></svg>');
         }
-        .card-futuristic {
-            background-color: rgba(30, 30, 30, 0.7);
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        .card-futuristic::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #ff6b00;  /* ส้ม */
-        }
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #ff6b00;  /* ส้ม */
-            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);  /* ส้ม */
-            line-height: 1;
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            color: #aaaaaa;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .cyber-circle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 107, 0, 0.1);  /* ส้ม */
-            border: 1px solid #ff6b00;  /* ส้ม */
-            margin-right: 8px;
-            color: #ff6b00;  /* ส้ม */
-        }
-        .cyber-grid {
-            background-image: linear-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(255, 107, 0, 0.1) 1px, transparent 1px);  /* ส้ม */
-            background-size: 20px 20px;
-            background-position: -1px -1px;
-        }
-        .cyber-title {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-        }
-        .cyber-btn {
-            background-color: rgba(255, 107, 0, 0.1);  /* ส้ม */
-            border: 1px solid #ff6b00;  /* ส้ม */
-            color: #ff6b00;  /* ส้ม */
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            padding: 0.5rem 1.25rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        .cyber-btn:hover {
-            background-color: rgba(255, 107, 0, 0.2);  /* ส้ม */
-            box-shadow: 0 0 15px rgba(255, 107, 0, 0.5);  /* ส้ม */
-        }
-        .cyber-table th {
-            color: #aaaaaa;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.75rem;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #2a2a2a;
-        }
-        .cyber-table td {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .cyber-table tr:hover {
-            background-color: rgba(255, 107, 0, 0.05);  /* ส้ม */
-        }
-        .user-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-        }
-        .badge-admin {
-            background-color: rgba(255, 107, 0, 0.2);  /* ส้ม */
-            border: 1px solid #ff6b00;  /* ส้ม */
-            color: #ff6b00;  /* ส้ม */
-        }
-        .badge-staff {
-            background-color: rgba(120, 170, 255, 0.2);
-            border: 1px solid #78aaff;
-            color: #78aaff;
-        }
-        .badge-member {
-            background-color: rgba(100, 255, 150, 0.2);
-            border: 1px solid #64ff96;
-            color: #64ff96;
-        }
-        input, select {
-            background-color: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            color: #ffffff;
-            transition: all 0.3s ease;
-        }
-        input:focus, select:focus {
-            border-color: #ff6b00;  /* ส้ม */
-            box-shadow: 0 0 0 1px rgba(255, 107, 0, 0.2);  /* ส้ม */
-        }
-        select {
 
+        /* กำหนดพื้นฐานสำหรับ Modal */
+        .modal {
+            display: none;
+        }
+
+        .modal.active {
+            display: flex;
         }
     </style>
 </head>
-<body class="cyber-grid">
+<body class="min-h-screen text-white bg-cyber-dark bg-opacity-20">
     <div class="min-h-screen">
         <!-- Header -->
         <header class="bg-cyber-darker border-b border-gray-800">
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <div class="flex items-center">
-                    <div class="cyber-circle">
+                    <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg>
@@ -193,10 +77,10 @@
 
                 <!-- User Stats -->
                 <div class="grid grid-cols-1 gap-6 mb-6">
-                    <div class="card-futuristic">
+                    <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                         <div class="p-6">
-                            <h2 class="cyber-title">
-                                <div class="cyber-circle">
+                            <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                                <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                     </svg>
@@ -205,19 +89,19 @@
                             </h2>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                                 <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
-                                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-500 opacity-50"></div>
-                                    <p class="stat-label">พนักงาน</p>
-                                    <p class="stat-number" style="color: #78aaff; text-shadow: 0 0 10px rgba(120, 170, 255, 0.5);">{{ staff_count }}</p>
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-500 bg-opacity-50"></div>
+                                    <p class="text-gray-400 uppercase tracking-wider text-sm">พนักงาน</p>
+                                    <p class="text-5xl font-bold text-blue-400 leading-none" style="text-shadow: 0 0 10px rgba(120, 170, 255, 0.5);">{{ staff_count }}</p>
                                 </div>
                                 <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
-                                    <div class="absolute top-0 left-0 w-full h-1 bg-green-500 opacity-50"></div>
-                                    <p class="stat-label">สมาชิก</p>
-                                    <p class="stat-number" style="color: #64ff96; text-shadow: 0 0 10px rgba(100, 255, 150, 0.5);">{{ member_count }}</p>
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-green-500 bg-opacity-50"></div>
+                                    <p class="text-gray-400 uppercase tracking-wider text-sm">สมาชิก</p>
+                                    <p class="text-5xl font-bold text-green-400 leading-none" style="text-shadow: 0 0 10px rgba(100, 255, 150, 0.5);">{{ member_count }}</p>
                                 </div>
                                 <div class="bg-cyber-dark rounded-lg p-4 text-center border border-gray-800 relative overflow-hidden">
-                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange opacity-50"></div>
-                                    <p class="stat-label">ผ้ใช้ทั้งหมด</p>
-                                    <p class="stat-number">{{ total_count }}</p>
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-cyber-orange bg-opacity-50"></div>
+                                    <p class="text-gray-400 uppercase tracking-wider text-sm">ผู้ใช้ทั้งหมด</p>
+                                    <p class="text-5xl font-bold text-cyber-orange leading-none" style="text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);">{{ total_count }}</p>
                                 </div>
                             </div>
                         </div>
@@ -226,8 +110,8 @@
 
                 <!-- Action Buttons -->
                 <div class="mb-6 flex flex-wrap gap-4">
-                    <a href="{% url 'admin_statistics' %}" class="cyber-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="{% url 'admin_statistics' %}" class="bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange uppercase tracking-wider font-semibold px-5 py-2 rounded hover:bg-opacity-20 transition-all hover:shadow-lg hover:shadow-cyber-orange/30 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                         สถิติผู้ใช้งาน
@@ -235,10 +119,10 @@
                 </div>
 
                 <!-- Search and Filter -->
-                <div class="card-futuristic mb-6">
+                <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange mb-6">
                     <div class="p-6">
-                        <h2 class="cyber-title">
-                            <div class="cyber-circle">
+                        <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                            <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
@@ -249,19 +133,19 @@
                             <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                                 <div class="flex-grow">
                                     <label for="search" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">แถบหารายชื่อ</label>
-                                    <input type="text" name="search" id="search" value="{{ search_query }}" class="mt-1 block w-full shadow-sm sm:text-sm rounded-md py-2 px-3 bg-cyber-dark border-gray-800 focus:border-cyber-orange" placeholder="ค้นหาชื่อหรืออีเมล">
+                                    <input type="text" name="search" id="search" value="{{ search_query }}" class="mt-1 block w-full shadow-sm text-sm rounded-md py-2 px-3 bg-cyber-dark border-gray-800 focus:border-cyber-orange focus:ring focus:ring-cyber-orange focus:ring-opacity-20 text-white" placeholder="ค้นหาชื่อหรืออีเมล">
                                 </div>
                                 <div>
                                     <label for="type" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">USER TYPE</label>
-                                    <select name="type" id="type" class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm bg-cyber-dark border-gray-800 focus:border-cyber-orange sm:text-sm">
+                                    <select name="type" id="type" class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm bg-cyber-dark border-gray-800 focus:border-cyber-orange focus:ring focus:ring-cyber-orange focus:ring-opacity-20 text-white text-sm">
                                         <option value="all" {% if user_type == 'all' %}selected{% endif %}>ผู้ใช้ท้ังหมด</option>
                                         <option value="staff" {% if user_type == 'staff' %}selected{% endif %}>พนักงาน</option>
                                         <option value="member" {% if user_type == 'member' %}selected{% endif %}>สมาชิก</option>
                                     </select>
                                 </div>
                                 <div class="self-end">
-                                    <button type="submit" class="cyber-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <button type="submit" class="bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange uppercase tracking-wider font-semibold px-5 py-2 rounded hover:bg-opacity-20 transition-all hover:shadow-lg hover:shadow-cyber-orange/30 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                         </svg>
                                         ค้นหา
@@ -273,10 +157,10 @@
                 </div>
 
                 <!-- User List Table -->
-                <div class="card-futuristic">
+                <div class="bg-cyber-gray bg-opacity-70 border border-gray-800 rounded-lg relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-cyber-orange">
                     <div class="p-6">
-                        <h2 class="cyber-title">
-                            <div class="cyber-circle">
+                        <h2 class="uppercase tracking-wider font-semibold border-b border-gray-800 pb-3 flex items-center">
+                            <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
@@ -284,58 +168,67 @@
                             รายการผู้ใช้
                         </h2>
                         <div class="overflow-x-auto mt-4">
-                            <table class="min-w-full cyber-table">
+                            <table class="min-w-full">
                                 <thead>
                                     <tr>
-                                        <th>ชื่อ</th>
-                                        <th>ชื่อผู้ใช้</th>
-                                        <th>ตำแหน่ง</th>
-                                        <th>เบอร์ติดต่อ</th>
-                                        <th>วันที่สร้าง</th>
-                                        <th class="text-right"></th>
+                                        <th class="text-left py-4 px-6 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800">ชื่อ</th>
+                                        <th class="text-left py-4 px-6 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800">ชื่อผู้ใช้</th>
+                                        <th class="text-left py-4 px-6 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800">ตำแหน่ง</th>
+                                        <th class="text-left py-4 px-6 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800">เบอร์ติดต่อ</th>
+                                        <th class="text-left py-4 px-6 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800">วันที่สร้าง</th>
+                                        <th class="text-left py-4 px-6 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800">จัดการ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for user in page_obj %}
-                                    <tr>
-                                        <td>
+                                    <tr class="hover:bg-cyber-orange hover:bg-opacity-5">
+                                        <td class="py-4 px-6 border-b border-gray-800 h-18">
                                             <div class="text-white">{{ user.name }}</div>
                                             {% if user.email != '-' %}
-                                                <div class="text-gray-500 text-x">{{ user.email }}</div>
+                                                <div class="text-gray-500 text-sm">{{ user.email }}</div>
                                             {% endif %}
                                         </td>
-                                        <td>
+                                        <td class="py-4 px-6 border-b border-gray-800">
                                             <div class="text-gray-300 font-mono">{{ user.username }}</div>
                                         </td>
-                                        <td>
-                                            <span class="user-badge {% if user.role == 'Admin' %}badge-admin{% elif user.role == 'Staff' %}badge-staff{% else %}badge-member{% endif %}">
-                                                {{ user.role }}
-                                            </span>
+                                        <td class="py-4 px-6 border-b border-gray-800">
+                                            {% if user.role == 'Admin' %}
+                                                <span class="inline-block px-3 py-1 text-xs rounded bg-cyber-orange bg-opacity-20 border border-cyber-orange text-cyber-orange uppercase tracking-wider">
+                                                    {{ user.role }}
+                                                </span>
+                                            {% elif user.role == 'Staff' %}
+                                                <span class="inline-block px-3 py-1 text-xs rounded bg-blue-500 bg-opacity-20 border border-blue-400 text-blue-400 uppercase tracking-wider">
+                                                    {{ user.role }}
+                                                </span>
+                                            {% else %}
+                                                <span class="inline-block px-3 py-1 text-xs rounded bg-green-500 bg-opacity-20 border border-green-400 text-green-400 uppercase tracking-wider">
+                                                    {{ user.role }}
+                                                </span>
+                                            {% endif %}
                                         </td>
-                                        <td class="text-gray-400">
+                                        <td class="py-4 px-6 border-b border-gray-800 text-gray-400">
                                             {{ user.contact }}
                                         </td>
-                                        <td class="text-gray-400">
+                                        <td class="py-4 px-6 border-b border-gray-800 text-gray-400">
                                             {{ user.created_at|date:"d/m/Y" }}
                                         </td>
-
-                                        <td class="text-right">
-                                            <div class="btn-group">
+                                        <td class="py-4 px-6 border-b border-gray-800">
+                                            <div class="flex items-center space-x-2">
                                                 {% if user.role == 'Member' %}
-                                                <button type="button" onclick="openEditModal('{{ user.id }}', '{{ user.type }}')" class="edit-btn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <button type="button" onclick="openEditModal('{{ user.id }}', '{{ user.type }}')" class="flex items-center bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange text-xs uppercase tracking-wider px-3 py-1 rounded hover:bg-opacity-20 transition-all whitespace-nowrap">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                     </svg>
-                                                    Edit
+                                                    แก้ไข
                                                 </button>
                                                 {% endif %}
-                                                <form method="POST" action="{% url 'delete_user' user.type user.id %}" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?');" class="inline">
+                                                <form method="POST" action="{% url 'delete_user' user.type user.id %}" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?');" class="inline-flex">
                                                     {% csrf_token %}
-                                                    <button type="submit" class="text-red-400 hover:text-red-300 uppercase text-xs tracking-wider">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <button type="submit" class="flex items-center bg-red-500 bg-opacity-10 border border-red-500 text-red-400 text-xs uppercase tracking-wider px-3 py-1 rounded hover:bg-opacity-20 transition-all whitespace-nowrap">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
-                                                        Delete
+                                                        ลบ
                                                     </button>
                                                 </form>
                                             </div>
@@ -343,54 +236,56 @@
                                     </tr>
                                     {% empty %}
                                     <tr>
-                                        <td colspan="6" class="text-center text-gray-500">
-                                            NO USERS FOUND
+                                        <td colspan="6" class="text-center text-gray-500 py-4 px-6 border-b border-gray-800">
+                                            ไม่เจอผู้ใช้
                                         </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
-                        <div id="editModal" class="modal">
-                            <div class="modal-content">
-                                <div class="modal-header">
+
+                        <!-- Modal -->
+                        <div id="editModal" class="modal fixed inset-0 bg-black bg-opacity-70 z-50 overflow-auto hidden items-center justify-center">
+                            <div class="bg-cyber-gray border border-cyber-orange rounded-lg w-11/12 max-w-2xl mx-auto my-8 shadow-lg shadow-cyber-orange/20">
+                                <div class="flex justify-between items-center px-6 py-4 border-b border-gray-800">
                                     <div class="flex items-center">
-                                        <div class="cyber-circle">
+                                        <div class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange mr-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </div>
                                         <h2 class="text-xl font-semibold text-white uppercase tracking-wider">แก้ไขข้อมูลสมาชิก</h2>
                                     </div>
-                                    <button type="button" class="close-btn" onclick="closeModal()">&times;</button>
+                                    <button type="button" class="text-cyber-orange text-3xl font-bold hover:text-white" onclick="closeModal()">&times;</button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="p-6">
                                     <form id="editMemberForm" method="POST" action="">
                                         {% csrf_token %}
                                         <div class="grid grid-cols-2 gap-4">
-                                            <div class="form-group">
+                                            <div class="mb-4">
                                                 <label for="first_name" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">ชื่อ</label>
-                                                <input type="text" id="first_name" name="first_name" class="form-control" required>
+                                                <input type="text" id="first_name" name="first_name" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" required>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="mb-4">
                                                 <label for="last_name" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">นามสกุล</label>
-                                                <input type="text" id="last_name" name="last_name" class="form-control" required>
+                                                <input type="text" id="last_name" name="last_name" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" required>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="mb-4">
                                             <label for="id_card" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">รหัสบัตรประชาชน</label>
-                                            <input type="text" id="id_card" name="id_card" class="form-control" maxlength="13" required>
+                                            <input type="text" id="id_card" name="id_card" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" maxlength="13" required>
                                         </div>
 
                                         <div class="grid grid-cols-2 gap-4">
-                                            <div class="form-group">
+                                             <div class="mb-4">
                                                 <label for="birth_date" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">วันเดือนปีเกิด</label>
-                                                <input type="text" id="birth_date" name="birth_date" class="form-control datepicker" required>
+                                                <input type="text" id="birth_date" name="birth_date" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange datepicker" required>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="mb-4">
                                                 <label for="gender" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">เพศ</label>
-                                                <select id="gender" name="gender" class="form-control" required>
+                                                <select id="gender" name="gender" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" required>
                                                     <option value="male">ชาย</option>
                                                     <option value="female">หญิง</option>
                                                     <option value="other">อื่นๆ</option>
@@ -399,24 +294,24 @@
                                         </div>
 
                                         <div class="grid grid-cols-2 gap-4">
-                                            <div class="form-group">
+                                            <div class="mb-4">
                                                 <label for="weight" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">น้ำหนัก (กก.)</label>
-                                                <input type="number" id="weight" name="weight" step="0.1" class="form-control" required>
+                                                <input type="number" id="weight" name="weight" step="0.1" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" required>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="mb-4">
                                                 <label for="height" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">ส่วนสูง (ซม.)</label>
-                                                <input type="number" id="height" name="height" step="0.1" class="form-control" required>
+                                                <input type="number" id="height" name="height" step="0.1" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" required>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="mb-4">
                                             <label for="phone_number" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">เบอร์โทรศัพท์</label>
-                                            <input type="text" id="phone_number" name="phone_number" class="form-control" required>
+                                            <input type="text" id="phone_number" name="phone_number" class="block w-full bg-cyber-dark border border-gray-800 rounded-md py-2 px-3 text-white focus:border-cyber-orange focus:outline-none focus:ring-1 focus:ring-cyber-orange" required>
                                         </div>
 
                                         <div class="mt-6 flex justify-end space-x-3">
-                                            <button type="button" class="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700" onclick="closeModal()">ยกเลิก</button>
-                                            <button type="submit" class="cyber-btn">บันทึกข้อมูล</button>
+                                            <button type="button" class="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors" onclick="closeModal()">ยกเลิก</button>
+                                            <button type="submit" class="bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange uppercase tracking-wider font-semibold px-4 py-2 rounded hover:bg-opacity-20 transition-all hover:shadow-lg hover:shadow-cyber-orange/30">บันทึกข้อมูล</button>
                                         </div>
                                     </form>
                                 </div>
@@ -426,9 +321,9 @@
                         <!-- Pagination -->
                         {% if page_obj.paginator.num_pages > 1 %}
                         <div class="mt-6 flex items-center justify-between">
-                            <div class="flex-1 flex justify-between">
+                            <div class="flex-1 flex justify-between items-center">
                                 {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&type={{ user_type }}" class="cyber-btn">
+                                <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&type={{ user_type }}" class="bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange uppercase tracking-wider font-semibold px-4 py-2 rounded hover:bg-opacity-20 transition-all hover:shadow-lg hover:shadow-cyber-orange/30">
                                     PREVIOUS
                                 </a>
                                 {% else %}
@@ -442,7 +337,7 @@
                                 </span>
 
                                 {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&type={{ user_type }}" class="cyber-btn">
+                                <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&type={{ user_type }}" class="bg-cyber-orange bg-opacity-10 border border-cyber-orange text-cyber-orange uppercase tracking-wider font-semibold px-4 py-2 rounded hover:bg-opacity-20 transition-all hover:shadow-lg hover:shadow-cyber-orange/30">
                                     NEXT
                                 </a>
                                 {% else %}
@@ -458,66 +353,67 @@
             </div>
         </main>
     </div>
-</body>
-<script>
-    // สำหรับเปิด/ปิดโมดัล
-    function openEditModal(id, type) {
-        if (type === 'member') {
-            // สร้าง URL สำหรับ fetch ข้อมูลและตั้งค่า action ของฟอร์ม
-            const getUrl = `/api/member/${id}/`;
-            const formAction = `/member/edit/${id}/`;
 
-            // ตั้งค่า action ของฟอร์ม
-            document.getElementById('editMemberForm').action = formAction;
+    <script>
+        // สำหรับเปิด/ปิดโมดัล
+        function openEditModal(id, type) {
+            if (type === 'member') {
+                // สร้าง URL สำหรับ fetch ข้อมูลและตั้งค่า action ของฟอร์ม
+                const getUrl = `/api/member/${id}/`;
+                const formAction = `/member/edit/${id}/`;
 
-            // ดึงข้อมูลสมาชิกจาก API
-            fetch(getUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // เติมข้อมูลในฟอร์ม
-                    document.getElementById('first_name').value = data.first_name;
-                    document.getElementById('last_name').value = data.last_name;
-                    document.getElementById('id_card').value = data.id_card;
-                    document.getElementById('birth_date').value = data.birth_date;
-                    document.getElementById('gender').value = data.gender;
-                    document.getElementById('weight').value = data.weight;
-                    document.getElementById('height').value = data.height;
-                    document.getElementById('phone_number').value = data.phone_number;
+                // ตั้งค่า action ของฟอร์ม
+                document.getElementById('editMemberForm').action = formAction;
 
-                    // เปิดโมดัล
-                    document.getElementById('editModal').classList.add('active');
-                })
-                .catch(error => {
-                    console.error('Error fetching member data:', error);
-                    alert('เกิดข้อผิดพลาดในการดึงข้อมูลสมาชิก');
-                });
+                // ดึงข้อมูลสมาชิกจาก API
+                fetch(getUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // เติมข้อมูลในฟอร์ม
+                        document.getElementById('first_name').value = data.first_name;
+                        document.getElementById('last_name').value = data.last_name;
+                        document.getElementById('id_card').value = data.id_card;
+                        document.getElementById('birth_date').value = data.birth_date;
+                        document.getElementById('gender').value = data.gender;
+                        document.getElementById('weight').value = data.weight;
+                        document.getElementById('height').value = data.height;
+                        document.getElementById('phone_number').value = data.phone_number;
+
+                        // เปิดโมดัล
+                        document.getElementById('editModal').classList.add('active');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching member data:', error);
+                        alert('เกิดข้อผิดพลาดในการดึงข้อมูลสมาชิก');
+                    });
+            }
         }
-    }
 
-    function closeModal() {
-        document.getElementById('editModal').classList.remove('active');
-    }
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
 
-    // สำหรับกำหนด datepicker
-    document.addEventListener('DOMContentLoaded', function() {
-        flatpickr(".datepicker", {
-            dateFormat: "Y-m-d",
-            theme: "dark",
-            allowInput: true
+        // สำหรับกำหนด datepicker
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr(".datepicker", {
+                dateFormat: "Y-m-d",
+                theme: "dark",
+                allowInput: true
+            });
         });
-    });
 
-    // ปิดโมดัลเมื่อคลิกพื้นที่ภายนอก
-    window.addEventListener('click', function(event) {
-        const modal = document.getElementById('editModal');
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
-</script>
+        // ปิดโมดัลเมื่อคลิกพื้นที่ภายนอก
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
 </html>

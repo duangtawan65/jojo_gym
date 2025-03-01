@@ -8,7 +8,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('staff/register/', views.register_staff, name='register_staff'),
-  # ย้าย login ไปที่ /login/ แทน
+
 
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/users/delete/<str:user_type>/<str:user_id>/', views.delete_user, name='delete_user'),
